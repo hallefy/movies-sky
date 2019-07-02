@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "sky.movies"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://sky-exercise.herokuapp.com/\""
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://sky-exercise.herokuapp.com/\""
+        }
+    }
+}
+
+
+androidExtensions {
+    experimental = true
+}
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+
+    Map<String, String> dependencies = rootProject.ext.dependencies
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation dependencies.supportAppCompact
+    implementation dependencies.androidKotlin
+    implementation dependencies.supportAppCompact
+    implementation dependencies.androidKtx
+    implementation dependencies.constraintLayout
+    implementation dependencies.constraintLayout
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation dependencies.testJUnit
+    androidTestImplementation dependencies.testRunner
+    androidTestImplementation dependencies.testEspressoCore
+    androidTestImplementation dependencies.testEspressoIntents
+    androidTestImplementation(dependencies.testEspressoContrib) {
+        exclude group: 'com.google.android.material', module: 'material'
+    }
+    //Dagger
+    kaptTest dependencies.daggerCompiler
+    kaptAndroidTest dependencies.daggerCompiler
+    kapt dependencies.daggerCompiler
+    testImplementation dependencies.dagger
+    kapt dependencies.daggerAndroidProcessor
+    implementation dependencies.dagger
+    implementation dependencies.daggerAndroid
+    implementation dependencies.daggerAndroidSupport
+    implementation dependencies.lifecycle
+    kapt dependencies.lifecycleCompiler
+    //Retrofit
+    implementation dependencies.squareConverterGson
+    implementation dependencies.squareLogging
+    implementation dependencies.squareOkHttp
+    implementation dependencies.squareRxAdapter
+    implementation dependencies.squareRetrofit
+    //Rx
+    implementation dependencies.rxJava
+    implementation dependencies.rxKotlin
+    implementation dependencies.rxAndroid
+    implementation dependencies.picasso
+    //test
+    testImplementation dependencies.mockk
+    testImplementation dependencies.testArchCore
+    //lottie
+    implementation dependencies.extlottie
+}
