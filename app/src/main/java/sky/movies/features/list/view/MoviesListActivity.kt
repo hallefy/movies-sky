@@ -67,6 +67,7 @@ class MoviesListActivity : DaggerAppCompatActivity() {
                     swipRefresh.stopRefreshing()
                     recyclerView.gone()
                     animationView.playAnimation()
+                    animationView.visible()
                 }
                 ViewState.SUCCESS -> {
                     swipRefreshError.gone()
